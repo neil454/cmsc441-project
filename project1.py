@@ -5,10 +5,10 @@ import random
 # Declare global variables that functions can access, if they need them (this way, we don't have to pass them as args)
 a = None                    # the line representation, which is a string on the alphabet, {H, G, W, T}
 opt_pairs_table = None      # table for storing memoized outputs of OPT for all i and j pairs
-opt_choices_table = None    # table for storing the optimal choices of each iteration (for recomputing S later)
+opt_choices_table = None    # table for storing the optimal choices of each recursion (for recomputing S later)
 S = None                    # actual solution (optimal pairs themselves), to be recomputed later
 
-# TODO add comments about time complexity of certain code blocks?
+
 def OPT(i, j):
     global a, opt_pairs_table, opt_choices_table
 
@@ -60,11 +60,14 @@ def reconstruct_S(i, j):
         reconstruct_S(i, opt_choices_table[i][j][0] - 1)
         reconstruct_S(opt_choices_table[i][j][0] + 1, opt_choices_table[i][j][1] - 1)
 
+
 def get_random_line(n):
     return ''.join(random.choice("HGWT") for _ in xrange(n))
 
+
 def get_line_from_file(file_name, n):
     return open(file_name).readline()[:n]
+
 
 def main():
     global a, opt_pairs_table, opt_choices_table, S
