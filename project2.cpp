@@ -9,7 +9,7 @@ using namespace std;
 
 // Declare global variables that functions can access (this way, we don't have to pass them as args)
 string a;   // the line representation, which is a string on the alphabet, {H, G, W, T}
-std::vector<std::vector<int>> opt_pairs_table;      // table for storing memoized outputs of OPT for all i and j pairs
+std::vector<std::vector<int> > opt_pairs_table;      // table for storing memoized outputs of OPT for all i and j pairs
 
 // declare function prototypes
 int OPT_iter(int i, int j);
@@ -71,8 +71,7 @@ int OPT(int i, int j){
 }
 
 string get_line_from_file(string file_name, int n){
-    ifstream infile;
-    infile.open(file_name);
+    ifstream infile(file_name.c_str());
     if (infile.good() == 0){
         cout << "ERROR: file_name, " << file_name << " doesn't exist." << endl;
         return "";
@@ -87,7 +86,7 @@ int get_num_pairs_for_line(int n){
     a = get_line_from_file("test_data.txt", n);
 
     // Initialize a n-by-n 2D array of -1s, for storing memoized outputs of OPT for all i and j pairs
-    vector<vector<int>> mat(n, vector<int>(n, -1));
+    vector<vector<int> > mat(n, vector<int>(n, -1));
     opt_pairs_table = mat;
 
     // Calculate the optimal pairs for the line, and time the function
