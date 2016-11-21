@@ -1,3 +1,6 @@
+# NOTE: This was used to ease transition for python to c++ for the new iterative algo.
+# However, the iterative algo is now more fleshed out on the c++ version, so this code is old.
+
 import sys
 import time
 import random
@@ -13,10 +16,10 @@ opt_pairs_table = None      # table for storing memoized outputs of OPT for all 
 def OPT_iter(i, j):
     global a
 
-    for r in range(len(a)):
-        # opt_ret = Parallel(n_jobs=4)(delayed(OPT)(c, c+r) for c in range(len(a) - r))
-        for c in range(len(a) - r):
-            opt_ret = OPT(c, c+r)
+    for col in range(len(a)):
+        # opt_ret = Parallel(n_jobs=4)(delayed(OPT)(row, row+col) for row in range(len(a) - col))
+        for row in range(len(a) - col):
+            opt_ret = OPT(row, row+col)
 
     return opt_ret
 
