@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=project2
+#SBATCH --job-name=project2.o
 #SBATCH --output results_8_thread.txt
 #SBATCH --error slurm.err
 #SBATCH --partition=batch

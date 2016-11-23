@@ -1,3 +1,5 @@
+// Compile with "g++ project2.cpp -o project2.o -fopenmp", or use Makefile/cmake
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -69,17 +71,17 @@ int find_optimal_num_pairs_for_line(int n){
     opt_pairs_table = mat;
 
     // Set the lower triangular region of opt_pairs_table to 0
-    for (int row = 0; row < a.size(); row++){
-        for (int col = 0; col < a.size() - row; col++){
+    for (size_t row = 0; row < a.size(); row++){
+        for (size_t col = 0; col < a.size() - row; col++){
             opt_pairs_table[col+row][col] = 0;
         }
     }
 
     // Calculate the optimal pairs for the line, and time the operation
     double start_time = omp_get_wtime();
-    for (int col = 0; col < a.size(); col++){
+    for (size_t col = 0; col < a.size(); col++){
         #pragma omp parallel for
-        for (int row = 0; row < a.size() - col; row++){
+        for (size_t row = 0; row < a.size() - col; row++){
             OPT(row, row+col);
         }
     }
